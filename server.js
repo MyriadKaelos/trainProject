@@ -1,3 +1,21 @@
+//at top of file
+const MongoClient = require('mongodb').MongoClient
+// call the packages we need
+var express       = require('express');      // call express
+var bodyParser    = require('body-parser');
+var app           = express();     // define our app using express
+// configure app to use bodyParser() and ejs
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine','ejs');
+// get an instance of the express Router
+var router = express.Router();
+// a “get” at the root of our web app: http://localhost:3000/api
+router.get('/', function(req, res) {
+    res.render('index.ejs', {error: ""});
+});
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
 function RollingStock(w,t,m,h = 0){
     this.weight = w;
     this.id = getnextid();
@@ -45,28 +63,6 @@ function getnextid(){
     return 4;
 }
 
-
-
-//at top of file
-const MongoClient = require('mongodb').MongoClient
-
-
-
-// call the packages we need
-var express       = require('express');      // call express
-var bodyParser    = require('body-parser');
-var app           = express();     // define our app using express
-// configure app to use bodyParser() and ejs
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine','ejs');
-// get an instance of the express Router
-var router = express.Router();
-// a “get” at the root of our web app: http://localhost:3000/api
-router.get('/', function(req, res) {
-    res.render('index.ejs', {error: ""});
-});
-// all of our routes will be prefixed with /api
-app.use('/api', router);
 
 //ADD ROLLINGSTOCK ACTION
 app.post('/api/addRollingStock', function (req, res) {
