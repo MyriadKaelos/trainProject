@@ -2,18 +2,21 @@
 <head>
 </head>
 <body>
-    <form action="/api/addRollingStock" type="POST">
-        <input type="number" name="weight"/>//weight
-        <select name="type">
-            <option value="z">Sleeper</option>
-            <option value="d">Dining</option>
-            <option value="s">Storage</option>
-            <option value="m">Material</option>
-            <option value="e">Engine</option>
-        </select>
-        <input type="text" name="model"/>
-        <input type="number" name="horsePower"/>
-        <input type="submit" name="submit"/>
-    </form>
+    <fieldset>
+        <legend>Add Rolling Stock</legend>
+        <form action="/api/addRollingStock" type="POST">
+            <input type="number" name="weight"/>//weight
+            <select name="type">
+                <option value="z" au>Sleeper</option>
+                <option value="d">Dining</option>
+                <option value="s">Storage</option>
+                <option value="m">Material</option>
+                <option value="e">Engine</option>
+            </select>
+            <input type="text" name="model"/>
+            <input type="number" name="horsePower"/>
+            <input type="submit" name="submit"/>
+        </form>
+    </fieldset>
 </body>
 </html>
