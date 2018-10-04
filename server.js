@@ -18,6 +18,14 @@ router.get('/', function(req, res) {
 });
 // all of our routes will be prefixed with /api
 app.use('/api', router);
+
+//ADD ROLLINGSTOCK ACTION
+app.post('/api/addRollingStock', function (req, res) {
+    var weight = req.body.weight;
+    var type = req.body.type;
+    var model = req.body.model;
+    var horsePower = req.body.horsePower;
+})
 // START THE SERVER
 //==========================================================
 
