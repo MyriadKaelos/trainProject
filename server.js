@@ -23,6 +23,10 @@ function RollingStock(w,t,m,h = 0){
     this.contents = [];
     this.makemodel = m;
     this.horsepower = h;
+    this.formal = function(){
+        if(this.horsepower!=0){return this.horsepower+"-hp engine"}
+        else{return this.weight + "-pound "+this.type+" car"}
+    };
     this.addContent = function(c,w){
         if(typeof c == "number" && typeof w == "string" && w>=0){
             this.contents.push([c,w]);
@@ -36,6 +40,9 @@ function Train(){
     this.cars = [];
     this.origin = [];
     this.destination = [];
+    this.formal = function(){
+        return (this.cars.length+this.engines.length) + "-car train to "+this.destination[2];
+    };
     this.addEngine = function(e){
         if(typeof e == "number"){
             this.engines.push(e);
@@ -46,11 +53,11 @@ function Train(){
             this.cars.push(e);
         }
     };
-    this.setOrigin = function(lat,long){
-        this.origin = [lat,long];
+    this.setOrigin = function(lat,long,n){
+        this.origin = [lat,long,n];
     };
-    this.setDestination = function(lat,long){
-        this.destination = [lat,long];
+    this.setDestination = function(lat,long,n){
+        this.destination = [lat,long,n];
     };
 }
 
