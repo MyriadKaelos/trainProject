@@ -9,12 +9,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine','ejs');
 // get an instance of the express Router
 var router = express.Router();
-// a “get” at the root of our web app: http://localhost:3000/api
+// a “get” at the root of our web app: http://localhost:3000/
 router.get('/', function(req, res) {
     res.render('index.ejs', {error: ""});
 });
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use('/', router);
 
 function RollingStock(w,t,m,h = 0){
     this.weight = w;
@@ -74,27 +74,32 @@ function Company(n){
 function getnextid(){
     return 4;
 }
-
+//return array from database
+function getData(database) {
+    db.collection(database).find({}).toArray((err, result) => {if(err) {console.log(err) } else {return result}})
+}
 
 //ADD ROLLINGSTOCK ACTION
-app.post('/api/addRollingStock', function (req, res) {
+app.post('/addRollingStock', function (req, res) {
     var weight = req.body.weight;
     var type = req.body.type;
     var model = req.body.model;
     var horsePower = req.body.horsePower;
+    db.collection('rollingStock').insertOne(new RollingStock(weight,type,model,horsePower));
+    res.redirect('/');
 })
 // START THE SERVER
 //==========================================================
 
 
 var db
-MongoClient.connect('mongodb://yateslough:Yateslough1@ds223343.mlab.com:23343/trainproject', {useNewUrlParser:true}, (err, client) => {
+MongoClient.connect('mongodb://yateslough:Tra1nP@ds123003.mlab.com:23003/trainproject', {useNewUrlParser:true}, (err, client) => {
     if(err) { console.log(err) }
     console.log("Connected successfully to server");
-db = client.db('rollingStock')
-app.listen(3000, () => {
-    console.log('get');
-})
+    db = client.db('trainproject')
+    app.listen(3000, () => {
+        console.log('get');
+    })
 })
 
 //test comment #3
