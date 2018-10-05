@@ -24,7 +24,9 @@ function RollingStock(w,t,m,h = 0){
     this.makemodel = m;
     this.horsepower = h;
     this.addContent = function(c,w){
-        this.contents.push([c,w]);
+        if(typeof c == "number" && typeof w == "string" && w>=0){
+            this.contents.push([c,w]);
+        }
     }
 }
 
@@ -35,10 +37,14 @@ function Train(){
     this.origin = [];
     this.destination = [];
     this.addEngine = function(e){
-        this.engines.push(e);
+        if(typeof e == "number"){
+            this.engines.push(e);
+        }
     };
     this.addCar = function(c){
-        this.cars.push(c);
+        if(typeof e == "number"){
+            this.cars.push(e);
+        }
     };
     this.setOrigin = function(lat,long){
         this.origin = [lat,long];
@@ -48,16 +54,22 @@ function Train(){
     };
 }
 
-// function Company(n){
-//     this.name = n;
-//     this.id = getnextid();
-//     this.fleet = [];
-//     this.trains = [];
-//     this.addToFleet = function(r){
-//         this.fleet.push(r);
-//     };
-//     this.addTrain = function
-// }
+function Company(n){
+    this.name = n;
+    this.id = getnextid();
+    this.fleet = [];
+    this.trains = [];
+    this.addToFleet = function(r){
+        if(typeof r == "number"){
+            this.fleet.push(r);
+        }
+    };
+    this.addTrain = function(r){
+        if(typeof r == "number"){
+            this.trains.push(r);
+        }
+    }
+}
 
 function getnextid(){
     return 4;
