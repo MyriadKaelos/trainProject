@@ -16,11 +16,11 @@ router.get('/', function(req, res) {
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-function RollingStock(w,t,m,h = 0){
+function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
     this.weight = w;
-    this.id = getnextid();
+    this.id = i;
     this.type = t;
-    this.contents = [];
+    this.contents = c;
     this.makemodel = m;
     this.horsepower = h;
     this.formal = function(){
@@ -34,12 +34,12 @@ function RollingStock(w,t,m,h = 0){
     }
 }
 
-function Train(){
-    this.id = getnextid();
-    this.engines = [];
-    this.cars = [];
-    this.origin = [];
-    this.destination = [];
+function Train(i = getnextid(), g = [], c = [], o = [], d = []){
+    this.id = i;
+    this.engines = g;
+    this.cars = c;
+    this.origin = o;
+    this.destination = d;
     this.formal = function(){
         return (this.cars.length+this.engines.length) + "-car train to "+this.destination[2];
     };
@@ -61,11 +61,11 @@ function Train(){
     };
 }
 
-function Company(n){
+function Company(n, i=getnextid(), f=[], t=[]){
     this.name = n;
-    this.id = getnextid();
-    this.fleet = [];
-    this.trains = [];
+    this.id = i;
+    this.fleet = f;
+    this.trains = t;
     this.addToFleet = function(r){
         if(typeof r == "number"){
             this.fleet.push(r);
