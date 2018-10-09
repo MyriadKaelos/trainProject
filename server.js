@@ -33,7 +33,6 @@ function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
         }
     }
 }
-
 function Train(i = getnextid(), g = [], c = [], o = [], d = []){
     this.id = i;
     this.engines = g;
@@ -59,8 +58,23 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
     this.setDestination = function(lat,long,n){
         this.destination = [lat,long,n];
     };
+    this.calculateDistance = function(){
+        if(origin[1] && destination [1]){
+            //from https://github.com/r-e-stern/baseball.amtrak/blob/master/amtrak-baseball.js
+            var R = 6371e3;
+            var φ1 = this.origin[0]*Math.PI/180;
+            var φ2 = this.destination[1]*Math.PI/180;
+            var Δφ = (this.destination[0]-this.origin[0])*Math.PI/180;
+            var Δλ = (this.destination[1]-this.origin[1])*Math.PI/180;
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+            //output in meters
+        }
+    }
 }
-
 function Company(n, i=getnextid(), f=[], t=[]){
     this.name = n;
     this.id = i;
@@ -79,8 +93,10 @@ function Company(n, i=getnextid(), f=[], t=[]){
 }
 
 function getnextid(){
-    return 4;
+    return 4; //chosen by fair dice roll.
+              //guaranteed to be random.
 }
+
 //return array from database
 function getData(database) {
     db.collection(database).find({}).toArray((err, result) => {if(err) {console.log(err) } else {return result}})
