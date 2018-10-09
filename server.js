@@ -85,6 +85,9 @@ function getnextid(){
 function getData(database) {
     db.collection(database).find({}).toArray((err, result) => {if(err) {console.log(err) } else {return result}})
 }
+function getRollingStock(obj) {
+    return new RollingStock(obj.weight,obj.type,obj.makemodel,obj.horsepower,obj.contents,obj.id);
+}
 
 //ADD ROLLINGSTOCK ACTION
 app.post('/addRollingStock', function (req, res) {
