@@ -93,7 +93,7 @@ function Company(n, i=getnextid(), f=[], t=[]){
 }
 
 function getnextid(){
-    return 4; //chosen by fair dice roll.
+    return Math.random()*1e20; //chosen by fair dice roll.
               //guaranteed to be random.
 }
 
