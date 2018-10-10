@@ -147,6 +147,10 @@ app.post('/addCompany', function (req, res) {
     db.collection('company').insertOne(new Company(name));
     res.redirect('/');
 })
+app.post('/addTrain', function (req, res) {
+    db.collection('train').insertOne(new Train());
+    res.redirect('/');
+})
 app.post('/addTrainToCompany', function (req, res) {
     var train = req.body.train;
     var company = req.body.company;
