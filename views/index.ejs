@@ -31,11 +31,32 @@
         </form>
     </fieldset>
     <fieldset>
-
-
-
-
-
+        <legend>Add Company</legend>
+        <form action="/addCompany" method="POST">
+            <table>
+                <tr>
+                    <td><input type="text" name="name"/></td>
+                    <td><input type="submit" name="submit"/></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
+        <form action="/addTrainToCompany" method="POST">
+            <select name="company">
+                <% for(var i = 0; i < companies.length; i ++) { %>
+                    <option value="<%= companies[i].id %>"><%= companies[i].name %></option>
+                <% } %>
+            </select>
+            <select name="train">
+                <% for(var i = 0; i < trains.length; i ++) { %>
+                <option value="<%= trains[i].id %>"><%= trains[i].name %></option>
+                <% } %>
+            </select>
+        </form>
     </fieldset>
 </body>
 </html>

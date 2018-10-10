@@ -11,7 +11,7 @@ app.set('view engine','ejs');
 var router = express.Router();
 // a “get” at the root of our web app: http://localhost:3000/
 router.get('/', function(req, res) {
-    res.render('index.ejs', {error: "",});
+    res.render('index.ejs', {error: "",companies: getData('company','company'), trains: getData('train','train')});
 });
 // all of our routes will be prefixed with /api
 app.use('/', router);
@@ -143,6 +143,16 @@ app.post('/addRollingStock', function (req, res) {
     db.collection('rollingStock').insertOne(new RollingStock(weight,type,model,horsePower));
     res.redirect('/');
 })
+app.post('/addCompany', function (req, res) {
+    var name = req.body.name;
+    db.collection('company').insertOne(new Company(name));
+    res.redirect('/');
+})
+app.post('/addTrainToCompany', function (req, res) {
+    var train = req.body.train;
+    var company = req.body.company;
+    db.collection('company').findOneAndUpdate({id: company},{$push : {"trains": train}})
+})
 // START THE SERVER
 //==========================================================
 
@@ -154,7 +164,6 @@ MongoClient.connect('mongodb://yateslough:Tra1nP@ds123003.mlab.com:23003/trainpr
     db = client.db('trainproject')
     app.listen(3000, () => {
         console.log('get');
-        getData('rollingStock',true)
     })
 })
 
