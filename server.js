@@ -1,5 +1,5 @@
 //at top of file
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient;
 // call the packages we need
 var express       = require('express');      // call express
 var bodyParser    = require('body-parser');
@@ -141,21 +141,21 @@ app.post('/addRollingStock', function (req, res) {
     var horsePower = req.body.horsePower;
     db.collection('rollingStock').insertOne(new RollingStock(weight,type,model,horsePower));
     res.redirect('/');
-})
+});
 app.post('/addCompany', function (req, res) {
     var name = req.body.name;
     db.collection('company').insertOne(new Company(name));
     res.redirect('/');
-})
+});
 app.post('/addTrain', function (req, res) {
     db.collection('train').insertOne(new Train());
     res.redirect('/');
-})
+});
 app.post('/addTrainToCompany', function (req, res) {
     var train = req.body.train;
     var company = req.body.company;
     db.collection('company').findOneAndUpdate({id: company},{$push : {"trains": train}})
-})
+});
 // START THE SERVER
 //==========================================================
 
