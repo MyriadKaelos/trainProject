@@ -11,7 +11,17 @@ app.set('view engine','ejs');
 var router = express.Router();
 // a “get” at the root of our web app: http://localhost:3000/
 router.get('/', function(req, res) {
-    res.render('index.ejs', {error: "",companies: getData('company','company'), trains: getData('train','train')});
+    db.collection('company').find().toArray((err, result) => {
+        db.collection('train').find().toArray((err, result1) => {
+            res.render('index.ejs', {error: "", company: result.map((company, index, companies) => {
+                return new Company(company.name);
+            }), train: result1.map((train, index, trains) => {
+                return new Train(getnextid(),result1.engines,result1.cars,result1.origin,result1.destination);
+            })});
+        })
+    })
+
+
 });
 // all of our routes will be prefixed with /api
 app.use('/', router);
@@ -100,43 +110,6 @@ function Company(n, i=getnextid(), f=[], t=[]){
 function getnextid(){
     return Date.now()+Math.random();
 }
-
-//return array from database
-function getData(database,toObj = false) {
-    db.collection(database).find().toArray((err, result) => {if(err) {console.log(err) } else {
-        if(toObj) {
-            if(toObj == "rollingStock") {
-                let rollingStock = result.map((obj) => {
-                    return getRollingStock(obj);
-                })
-                return rollingStock
-            } else if(toObj = "train") {
-                let train = result.map((obj) => {
-                    return getTrain(obj);
-                })
-                return train
-            } else {
-                let company = result.map((obj) => {
-                    return getCompany(obj);
-                })
-                return company
-            }
-        } else {
-            return result
-        }
-    }})
-}
-//turns a mongodb rolling stock into our rollinstock object
-function getRollingStock(dbStock) {
-    return new RollingStock(dbStock.weight,dbStock.type,dbStock.makemodel,dbStock.horsepower,dbStock.contents,dbStock.id);
-}
-function getTrain(dbStock) {
-    return new Train(dbStock.id,dbStock.engine,dbStock.cars,dbStock.origin,dbStock.destination);
-}
-function getCompany(dbStock) {
-    return new Company(dbStock.name,dbStock.id,dbStock.fleet,dbStock.trains);
-}
-
 
 //ADD ROLLINGSTOCK ACTION
 app.post('/addRollingStock', function (req, res) {

@@ -93,22 +93,23 @@
     </fieldset>
     <fieldset>
         <legend>Add Empty Train</legend>
-        <form action="addTrain" method="POST">
+        <form action="/addTrain" method="POST">
             <input type="submit" name="submit"/>
         </form>
     </fieldset>
     <fieldset>
         <form action="/addTrainToCompany" method="POST">
             <select name="company">
-                <% for(var i = 0; i < companies.length; i ++) { %>
-                    <option value="<%= companies[i].id %>"><%= companies[i].name %></option>
+                <% for(var i = 0; i < company.length; i++) { %>
+                <option value="<%= company[i].id %>"><%= company[i].name %></option>
                 <% } %>
             </select>
             <select name="train">
-                <% for(var i = 0; i < trains.length; i ++) { %>
-                <option value="<%= trains[i].id %>"><%= trains[i].name %></option>
+                <% for(var i = 0; i < train.length; i++) { %>
+                <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
                 <% } %>
             </select>
+            <input type="submit" name="submit"/>
         </form>
     </fieldset>
 </body>
