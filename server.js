@@ -40,7 +40,12 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
     this.origin = o;
     this.destination = d;
     this.formal = function(){
-        return (this.cars.length+this.engines.length) + "-car train to "+this.destination[2];
+        if(this.destination[1]){
+            return (this.cars.length+this.engines.length) + "-car train to "+this.destination[2];
+        }else{
+            return "idle "+(this.cars.length+this.engines.length) + "-car train";
+        }
+
     };
     this.addEngine = function(e){
         if(typeof e == "number"){
