@@ -93,7 +93,7 @@ function Company(n, i=getnextid(), f=[], t=[]){
 }
 
 function getnextid(){
-    return Math.random()*1e16;
+    return Date.now()+Math.random();
 }
 
 //return array from database
