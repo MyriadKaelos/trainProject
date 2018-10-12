@@ -25,10 +25,8 @@ router.get('/', function(req, res) {
             })
         })
     })
-
-
 });
-// all of our routes will be prefixed with /api
+
 app.use('/', router);
 
 function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
@@ -135,9 +133,17 @@ app.post('/addTrain', function (req, res) {
     res.redirect('/');
 });
 app.post('/addTrainToCompany', function (req, res) {
-    var train = req.body.train;
-    var company = req.body.company;
-    db.collection('company').findOneAndUpdate({id: company},{$push : {"trains": train}})
+    var traid = req.body.train;
+    var compid = req.body.company;
+    db.collection("company").find({id: compid},{$set:{}}).toArray((err,result) => {
+        result.map((company, index, companies) => {
+            return new Company(company.name, company.id, company.fleet, company.trains);
+        });
+        result[0].addTrain(traid);
+        db.collection("company").findOneAndReplace({id: compid},result[0]);
+        res.redirect("/");
+    }));
+
 });
 // START THE SERVER
 //==========================================================
