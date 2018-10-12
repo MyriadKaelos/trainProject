@@ -13,11 +13,16 @@ var router = express.Router();
 router.get('/', function(req, res) {
     db.collection('company').find().toArray((err, result) => {
         db.collection('train').find().toArray((err, result1) => {
-            res.render('index.ejs', {error: "", company: result.map((company, index, companies) => {
-                return new Company(company.name);
-            }), train: result1.map((train, index, trains) => {
-                return new Train(getnextid(),result1.engines,result1.cars,result1.origin,result1.destination);
-            })});
+            db.collection('rollingStock').find().toArray((err2, result2) => {
+                res.render('index.ejs', {error: "", company: result.map((company, index, companies) => {
+                    return new Company(company.name, company.id, company.fleet, company.trains);
+                }), train: result1.map((train, index, trains) => {
+                    return new Train(train.id,train.engines,train.cars,train.origin,train.destination);
+                }), rollingStock: result2.map((rollingStock, index, rollingStocks) => {
+                    return new RollingStock(rollingStock.weight, rollingStock.type, rollingStock.makemodel, rollingStock.horsepower,
+                        rollingStock.contents, rollingStock.id);
+                })});
+            })
         })
     })
 
