@@ -139,11 +139,8 @@ app.post('/addTrainToCompany', function (req, res) {
     var dk = parseFloat(req.body.company)
     db.collection("company").find({id: dk}).toArray((err,result) => {
         if(err) {console.log(err)} else {
-            console.log(result);
             let newCompany = new Company(result[0].name, result[0].id, result[0].fleet, result[0].trains);
-            console.log(newCompany);
             newCompany.addTrain(parseFloat(req.body.train));
-            console.log(newCompany);
             db.collection("company").findOneAndReplace({id: result[0].id}, newCompany);
             res.redirect("/");
         }});
