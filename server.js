@@ -120,29 +120,33 @@ app.post('/addRollingStock', function (req, res) {
     var type = req.body.type;
     var model = req.body.model;
     var horsePower = req.body.horsePower;
+    console.log("new rollingstock, weight: " + weight + ", type: " + type + ", model: " + model + ", horsepower: " + horsePower + ".")
     db.collection('rollingStock').insertOne(new RollingStock(weight,type,model,horsePower));
     res.redirect('/');
 });
 app.post('/addCompany', function (req, res) {
+    console.log("add company with name: " + req.body.name);
     var name = req.body.name;
     db.collection('company').insertOne(new Company(name));
     res.redirect('/');
 });
 app.post('/addTrain', function (req, res) {
+    console.log("new train");
     db.collection('train').insertOne(new Train());
     res.redirect('/');
 });
 app.post('/addTrainToCompany', function (req, res) {
-    var traid = req.body.train;
-    var compid = req.body.company;
-    db.collection("company").find({id: compid},{$set:{}}).toArray((err,result) => {
-        result.map((company, index, companies) => {
-            return new Company(company.name, company.id, company.fleet, company.trains);
-        });
-        result[0].addTrain(traid);
-        db.collection("company").findOneAndReplace({id: compid},result[0]);
-        res.redirect("/");
-    }));
+    var dk = parseFloat(req.body.company)
+    db.collection("company").find({id: dk}).toArray((err,result) => {
+        if(err) {console.log(err)} else {
+            console.log(result);
+            let newCompany = new Company(result[0].name, result[0].id, result[0].fleet, result[0].trains);
+            console.log(newCompany);
+            newCompany.addTrain(parseFloat(req.body.train));
+            console.log(newCompany);
+            db.collection("company").findOneAndReplace({id: result[0].id}, newCompany);
+            res.redirect("/");
+        }});
 
 });
 // START THE SERVER
