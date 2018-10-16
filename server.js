@@ -168,7 +168,18 @@ app.post('/fillRollingStock',function(req,res){
 //function body goes here
 });
 app.post('/setTrainRoute',function(req,res){
-//function body goes here
+    var train = parseFloat(req.body.train);
+    var origin = [req.body.originLat,req.body.originLong,req.body.originName]
+    var destination = [req.body.destinationLat,req.body.destinationLong,req.body.destinationName]
+    db.collection("train").find({id: train}).toArray((err,result) => {
+        if(err) {console.log(err)} else {
+            let newTrain = new Train(result[0].id,result[0].engines,result[0].cars,result[0].origin,result[0].destination);
+            newTrain.setOrigin(origin[0],origin[1],origin[2]);
+            newTrain.setDestination(destination[0],destination[1],destination[2]);
+            db.collection("train").findOneAndReplace({id: result[0].id}, newTrain);
+            res.redirect('/');
+        }
+    })
 });
 app.post('/displayRollingStock',function(req,res){
 //function body goes here
