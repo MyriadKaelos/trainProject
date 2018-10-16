@@ -136,8 +136,8 @@ app.post('/addTrainToCompany', function (req, res) {
             newCompany.addTrain(parseFloat(req.body.train));
             db.collection("company").findOneAndReplace({id: result[0].id}, newCompany);
             res.redirect("/");
-        }});
-
+        }
+    });
 });
 app.post('/addRollingStocktoTrain', function (req, res) {
     var dk = parseFloat(req.body.train)
@@ -145,21 +145,21 @@ app.post('/addRollingStocktoTrain', function (req, res) {
         if(err) {console.log(err)} else {
             console.log(result);
             let newTrain = new Train(result[0].id,result[0].engines,result[0].cars,result[0].origin,result[0].destination);
-        db.collection("rollingStock").find({id: parseFloat(req.body.rollingStock)}).toArray((err1,res1) => {
-            if(err1){console.log(err1)} else{
-                let newRS = new RollingStock(res1[0].weight,res1[0].type,res1[0].makemodel,res1[0].horsepower,
-                    res1[0].contents,res1[0].id);
-                if(newRS.type == "engine"){
-                    newTrain.addEngine(newRS.id);
-                }else{
-                    newTrain.addCar(newRS.id);
+            db.collection("rollingStock").find({id: parseFloat(req.body.rollingStock)}).toArray((err1,res1) => {
+                if(err1){console.log(err1)} else{
+                    let newRS = new RollingStock(res1[0].weight,res1[0].type,res1[0].makemodel,res1[0].horsepower,res1[0].contents,res1[0].id);
+                    if(newRS.type == "engine"){
+                        newTrain.addEngine(newRS.id);
+                    }else{
+                        newTrain.addCar(newRS.id);
+                    }
+                    console.log(newTrain);
+                    db.collection("train").findOneAndReplace({id: result[0].id}, newTrain);
+                    res.redirect("/");
                 }
-                console.log(newTrain);
-                db.collection("train").findOneAndReplace({id: result[0].id}, newTrain);
-                res.redirect("/");
-            }
-        });
-    }});
+            });
+        }
+    });
 });
 app.post('/addRollingStocktoCompany',function(req,res){
 //function body goes here
