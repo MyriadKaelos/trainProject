@@ -114,33 +114,61 @@
     <fieldset>
         <legend>Add Train to Company</legend>
         <form action="/addTrainToCompany" method="POST">
-            <select name="company">
-                <% for(var i = 0; i < company.length; i++) { %>
-                <option value="<%= company[i].id %>"><%= company[i].name %></option>
-                <% } %>
-            </select>
-            <select name="train">
-                <% for(var i = 0; i < train.length; i++) { %>
-                <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
-                <% } %>
-            </select>
-            <input type="submit" name="submit"/>
+            <table>
+                <tr>
+                    <td>
+                        <select name="company">
+                            <% for(var i = 0; i < company.length; i++) { %>
+                            <option value="<%= company[i].id %>"><%= company[i].name %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="train">
+                            <% for(var i = 0; i < train.length; i++) { %>
+                            <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="submit"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Company</td>
+                    <td>Train</td>
+                </tr>
+            </table>
         </form>
     </fieldset>
     <fieldset>
         <legend>Add Rolling Stock to Train</legend>
         <form action="/addRollingStockToTrain" method="POST">
-            <select name="train">
-                <% for(var i = 0; i < train.length; i++) { %>
-                <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
-                <% } %>
-            </select>
-            <select name="rollingStock">
-                <% for(var i = 0; i < rollingStock.length; i++) { %>
-                <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
-                <% } %>
-            </select>
-            <input type="submit" name="submit"/>
+            <table>
+                <tr>
+                    <td>
+                        <select name="train">
+                            <% for(var i = 0; i < train.length; i++) { %>
+                            <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="rollingStock">
+                            <% for(var i = 0; i < rollingStock.length; i++) { %>
+                            <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="submit"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Train</td>
+                    <td>Rolling Stock</td>
+                </tr>
+            </table>
         </form>
     </fieldset>
     <fieldset>
