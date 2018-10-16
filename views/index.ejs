@@ -143,6 +143,36 @@
         </form>
     </fieldset>
     <fieldset>
+        <legend>Add Rolling Stock to Company</legend>
+        <form action="/addRollingStockToCompany" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <select name="rollingStock">
+                            <% for(var i = 0; i < rollingStock.length; i++) { %>
+                            <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="company">
+                            <% for(var i = 0; i < company.length; i++) { %>
+                            <option value="<%= company[i].id %>"><%= company[i].name %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="submit"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rolling Stock</td>
+                    <td>Company</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
         <legend>Set Train Route</legend>
         <form action="/setTrainRoute" method="POST">
             <select name="train">

@@ -162,7 +162,14 @@ app.post('/addRollingStocktoTrain', function (req, res) {
     });
 });
 app.post('/addRollingStocktoCompany',function(req,res){
-//function body goes here
+    var rollingStock = parseFloat(req.body.rollingStock)
+    var company = parseFloat(req.body.company)
+    db.collection('company').find({id: company}).toArray((err,result) => {
+        let newCompany = new Company(result[0].name,result[0].id,result[0].fleet,result[0].trains);
+        newCompany.addToFleet(rollingStock);
+        db.collection("company").findOneAndReplace({id: result[0].id}, newCompany);
+        res.redirect('/');
+    })
 });
 app.post('/fillRollingStock',function(req,res){
 //function body goes here
