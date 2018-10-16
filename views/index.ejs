@@ -129,5 +129,39 @@
             <input type="submit" name="submit"/>
         </form>
     </fieldset>
+    <fieldset>
+        <legend>Set Train Route to Train</legend>
+        <form action="/setTrainRoute" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <select name="train">
+                            <% for(var i = 0; i < train.length; i++) { %>
+                            <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="originName" type="text"/></td>
+                    <td><input name="originLong" type="number"/></td>
+                    <td><input name="originLat" type="number"/></td>
+                    <td>Origin</td>
+                </tr>
+                <tr>
+                    <td><input name="destinationName" type="text"/></td>
+                    <td><input name="destinationLong" type="number"/></td>
+                    <td><input name="destinationLat" type="number"/></td>
+                    <td>Destination</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>Longitude</td>
+                    <td>Latitude</td>
+                    <td><input name="submit" type="submit"/></td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
 </body>
 </html>

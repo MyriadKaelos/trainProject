@@ -139,7 +139,8 @@ app.post('/addTrainToCompany', function (req, res) {
             newCompany.addTrain(parseFloat(req.body.train));
             db.collection("company").findOneAndReplace({id: result[0].id}, newCompany);
             res.redirect("/");
-        }});
+        }
+    });
 
 });
 app.post('/addRollingStocktoTrain', function (req, res) {
@@ -147,10 +148,11 @@ app.post('/addRollingStocktoTrain', function (req, res) {
     db.collection("company").find({id: dk}).toArray((err,result) => {
         if(err) {console.log(err)} else {
             let newTrain = new Company(result[0].name, result[0].id, result[0].fleet, result[0].trains);
-    //add RS f(x) on newtrain
-    db.collection("company").findOneAndReplace({id: result[0].id}, newTrain);
-    res.redirect("/");
-}});
+            //add RS f(x) on newtrain
+            db.collection("company").findOneAndReplace({id: result[0].id}, newTrain);
+            res.redirect("/");
+        }
+    });
 });
 app.post('/addRollingStocktoCompany',function(req,res){
 //function body goes here
