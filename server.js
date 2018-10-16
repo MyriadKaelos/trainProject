@@ -1,15 +1,11 @@
 //at top of file
 const MongoClient = require('mongodb').MongoClient;
-// call the packages we need
-var express       = require('express');      // call express
+var express       = require('express');
 var bodyParser    = require('body-parser');
-var app           = express();     // define our app using express
-// configure app to use bodyParser() and ejs
+var app           = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine','ejs');
-// get an instance of the express Router
 var router = express.Router();
-// a “get” at the root of our web app: http://localhost:3000/
 router.get('/', function(req, res) {
     db.collection('company').find().toArray((err, result) => {
         db.collection('train').find().toArray((err, result1) => {
@@ -37,12 +33,13 @@ function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
     this.makemodel = m;
     this.horsepower = h;
     this.formal = function(){
-        if(this.horsepower!=0){return this.horsepower+"-hp engine"}
-        else{return this.weight + "-pound "+this.type+" car"}
+        if(this.horsepower!=0){return this.horsepower+"-hp "+this.makemodel+" engine"}
+        else{return this.weight + "-pound "+this.makemodel+" "+this.type+" car"}
     };
     this.addContent = function(c,w){
         if(typeof c == "number" && typeof w == "string" && w>=0){
             this.contents.push([c,w]);
+            this.weight+=c;
         }
     }
 }
@@ -114,7 +111,6 @@ function getnextid(){
     return Date.now()+Math.random();
 }
 
-//ADD ROLLINGSTOCK ACTION
 app.post('/addRollingStock', function (req, res) {
     var weight = req.body.weight;
     var type = req.body.type;
@@ -146,11 +142,35 @@ app.post('/addTrainToCompany', function (req, res) {
         }});
 
 });
-// START THE SERVER
-//==========================================================
+app.post('/addRollingStocktoTrain', function (req, res) {
+    var dk = parseFloat(req.body.train)
+    db.collection("company").find({id: dk}).toArray((err,result) => {
+        if(err) {console.log(err)} else {
+            let newTrain = new Company(result[0].name, result[0].id, result[0].fleet, result[0].trains);
+    //add RS f(x) on newtrain
+    db.collection("company").findOneAndReplace({id: result[0].id}, newTrain);
+    res.redirect("/");
+}});
+});
+app.post('/addRollingStocktoCompany',function(req,res){
+//function body goes here
+});
+app.post('/fillRollingStock',function(req,res){
+//function body goes here
+});
+app.post('/setTrainRoute',function(req,res){
+//function body goes here
+});
+app.post('/displayRollingStock',function(req,res){
+//function body goes here
+});
+app.post('/displayTrain',function(req,res){
+//function body goes here
+});
+app.post('/displayCompany',function(req,res){
+//function body goes here
+});
 
-
-var db
 MongoClient.connect('mongodb://yateslough:Tra1nP@ds123003.mlab.com:23003/trainproject', {useNewUrlParser:true}, (err, client) => {
     if(err) { console.log(err) }
     console.log("Connected successfully to server");
@@ -159,5 +179,3 @@ MongoClient.connect('mongodb://yateslough:Tra1nP@ds123003.mlab.com:23003/trainpr
         console.log('get');
     })
 })
-
-//test comment #3
