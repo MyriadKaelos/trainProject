@@ -86,7 +86,16 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
             return R * c;
             //output in meters
         }
-    }
+    };
+    this.weight = function(){
+        var w = 0;
+        for(l of [this.engines,this.cars]){
+            for(var i=0; i<l.length; i++){
+                w += l[i].weight;
+            }
+        }
+        return w;
+    };
 }
 function Company(n, i=getnextid(), f=[], t=[]){
     this.name = n;
@@ -172,7 +181,7 @@ app.post('/addRollingStocktoCompany',function(req,res){
     })
 });
 app.post('/fillRollingStock',function(req,res){
-//function body goes here
+
 });
 app.post('/setTrainRoute',function(req,res){
     var train = parseFloat(req.body.train);
