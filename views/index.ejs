@@ -88,137 +88,164 @@
     </script>
 </head>
 <body>
-    <header>
-        <fieldset>
-            <legend>Add Rolling Stock</legend>
-            <form action="/addRollingStock" method="POST">
-                <table>
-                    <tr>
-                        <td><input type="number" name="weight"/></td>
-                        <td>
-                            <select name="type">
-                                <option value="engine">Engine</option>
-                                <option value="dining">Dining</option>
-                                <option value="storage">Storage</option>
-                                <option value="sleeper">Sleeper</option>
-                            </select>
-                        </td>
-                        <td><input type="text" name="model"/></td>
-                        <td><input type="number" value="0" name="horsePower"/></td>
-                        <td><input type="submit" name="submit"/></td>
-                    </tr>
-                    <tr>
-                        <td>Weight</td>
-                        <td>Type</td>
-                        <td>Model</td>
-                        <td>HorsePower</td>
-                    </tr>
-                </table>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>Add Company</legend>
-            <form action="/addCompany" method="POST">
-                <table>
-                    <tr>
-                        <td><input type="text" name="name"/></td>
-                        <td><input type="submit" name="submit"/></td>
-                    </tr>
-                    <tr>
-                        <td>Name</td>
-                    </tr>
-                </table>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>Add Empty Train</legend>
-            <form action="/addTrain" method="POST">
-                <input type="submit" name="submit"/>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>Add Train to Company</legend>
-            <form action="/addTrainToCompany" method="POST">
-                <select name="company">
-                    <% for(var i = 0; i < company.length; i++) { %>
-                    <option value="<%= company[i].id %>"><%= company[i].name %></option>
-                    <% } %>
-                </select>
-                <select name="train">
-                    <% for(var i = 0; i < train.length; i++) { %>
-                    <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
-                    <% } %>
-                </select>
-                <input type="submit" name="submit"/>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>Add Rolling Stock to Train</legend>
-            <form action="/addRollingStockToTrain" method="POST">
-                <select name="train">
-                    <% for(var i = 0; i < train.length; i++) { %>
-                    <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
-                    <% } %>
-                </select>
-                <select name="rollingStock">
-                    <% for(var i = 0; i < rollingStock.length; i++) { %>
-                    <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
-                    <% } %>
-                </select>
-                <input type="submit" name="submit"/>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>Add Rolling Stock to Company</legend>
-            <form action="/addRollingStockToCompany" method="POST">
-                <table>
-                    <tr>
-                        <td>
-                            <select name="rollingStock">
-                                <% for(var i = 0; i < rollingStock.length; i++) { %>
-                                <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
-                                <% } %>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="company">
-                                <% for(var i = 0; i < company.length; i++) { %>
-                                <option value="<%= company[i].id %>"><%= company[i].name %></option>
-                                <% } %>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="submit" name="submit"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Rolling Stock</td>
-                        <td>Company</td>
-                    </tr>
-                </table>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>Set Train Route</legend>
-            <form action="/setTrainRoute" method="POST">
-                <select name="train">
-                    <% for(var i = 0; i < train.length; i++) { %>
-                    <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
-                    <% } %>
-                </select>
-                <input name="submit" type="submit"/>
-                <table id="route">
-                    <tr>
-                        <th>Origin</th>
-                        <td><input name="originName" type="text"/></td>
-                        <td><input name="originLong" type="number"/></td>
-                        <td><input name="originLat" type="number"/></td>
-                    </tr>
-                    <tr>
-                        <th>Destination</th>
-                        <td><input name="destinationName" type="text"/></td>
-                        <td><input name="destinationLong" type="number"/></td>
-                        <td><input name="destinationLat" type="number"/></td>
+    <fieldset>
+        <legend>Add Rolling Stock</legend>
+        <form action="/addRollingStock" method="POST">
+            <table>
+                <tr>
+                    <td><input type="number" name="weight"/></td>
+                    <td>
+                        <select name="type">
+                            <option value="engine">Engine</option>
+                            <option value="dining">Dining</option>
+                            <option value="storage">Storage</option>
+                            <option value="sleeper">Sleeper</option>
+                        </select>
+                    </td>
+                    <td><input type="text" name="model"/></td>
+                    <td><input type="number" value="0" name="horsePower"/></td>
+                    <td><input type="submit" name="submit"/></td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>Type</td>
+                    <td>Model</td>
+                    <td>HorsePower</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Add Company</legend>
+        <form action="/addCompany" method="POST">
+            <table>
+                <tr>
+                    <td><input type="text" name="name"/></td>
+                    <td><input type="submit" name="submit"/></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Add Empty Train</legend>
+        <form action="/addTrain" method="POST">
+            <input type="submit" name="submit"/>
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Add Train to Company</legend>
+        <form action="/addTrainToCompany" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <select name="company">
+                            <% for(var i = 0; i < company.length; i++) { %>
+                            <option value="<%= company[i].id %>"><%= company[i].name %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="train">
+                            <% for(var i = 0; i < train.length; i++) { %>
+                            <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="submit"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Company</td>
+                    <td>Train</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Add Rolling Stock to Train</legend>
+        <form action="/addRollingStockToTrain" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <select name="train">
+                            <% for(var i = 0; i < train.length; i++) { %>
+                            <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="rollingStock">
+                            <% for(var i = 0; i < rollingStock.length; i++) { %>
+                            <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="submit"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Train</td>
+                    <td>Rolling Stock</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Add Rolling Stock to Company</legend>
+        <form action="/addRollingStockToCompany" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <select name="rollingStock">
+                            <% for(var i = 0; i < rollingStock.length; i++) { %>
+                            <option value="<%= rollingStock[i].id %>"><%= rollingStock[i].formal() %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="company">
+                            <% for(var i = 0; i < company.length; i++) { %>
+                            <option value="<%= company[i].id %>"><%= company[i].name %></option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" name="submit"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rolling Stock</td>
+                    <td>Company</td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>Set Train Route</legend>
+        <form action="/setTrainRoute" method="POST">
+            <select name="train">
+                <% for(var i = 0; i < train.length; i++) { %>
+                <option value="<%= train[i].id %>"><%= train[i].formal() %></option>
+                <% } %>
+            </select>
+            <input name="submit" type="submit"/>
+            <table id="route">
+                <tr>
+                    <th>Origin</th>
+                    <td><input name="originName" type="text"/></td>
+                    <td><input name="originLong" type="number"/></td>
+                    <td><input name="originLat" type="number"/></td>
+                </tr>
+                <tr>
+                    <th>Destination</th>
+                    <td><input name="destinationName" type="text"/></td>
+                    <td><input name="destinationLong" type="number"/></td>
+                    <td><input name="destinationLat" type="number"/></td>
 
                     </tr>
                     <tr>
