@@ -57,12 +57,12 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
 
     };
     this.addEngine = function(e){
-        if(typeof e == "number"){
+        if(typeof e == "number" && !this.engines.includes(e)){
             this.engines.push(e);
         }
     };
     this.addCar = function(c){
-        if(typeof c == "number"){
+        if(typeof c == "number" && !this.engines.includes(c)){
             this.cars.push(c);
         }
     };
