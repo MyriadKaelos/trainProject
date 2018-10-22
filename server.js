@@ -96,7 +96,18 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
         }
         return w;
     };
+    this.horsepower = function(){
+        var h = 0;
+        for(l of this.engines){
+            h += l.horsepower;
+        }
+        return h;
+    };
+    this.speed = function(){
+        return 375 * this.horsepower() / this.weight();
+    }
 }
+
 function Company(n, i=getnextid(), f=[], t=[]){
     this.name = n;
     this.id = i;
