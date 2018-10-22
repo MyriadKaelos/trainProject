@@ -118,10 +118,10 @@ function getnextid(){
 }
 
 app.post('/addRollingStock', function (req, res) {
-    var weight = req.body.weight;
+    var weight = parseInt(req.body.weight);
     var type = req.body.type;
     var model = req.body.model;
-    var horsePower = req.body.horsePower;
+    var horsePower = parseInt(req.body.horsePower);
     console.log("new rollingstock, weight: " + weight + ", type: " + type + ", model: " + model + ", horsepower: " + horsePower + ".")
     db.collection('rollingStock').insertOne(new RollingStock(weight,type,model,horsePower));
     res.redirect('/');
@@ -181,7 +181,20 @@ app.post('/addRollingStocktoCompany',function(req,res){
     })
 });
 app.post('/fillRollingStock',function(req,res){
-
+    var rollingStock = parseFloat(req.body.rollingStock)
+    console.log(rollingStock)
+    var contentName = req.body.contentName
+    var contentNumber = parseInt(req.body.contentNumber)
+    db.collection('rollingStock').find({id: rollingStock}).toArray((err,result) => {
+        if(err) {console.log(err)} else {
+            console.log(result);
+            let newRollingStock = new RollingStock(result[0].weight,result[0].type,result[0].makemodel,result[0].horsepower,result[0].contents,result[0].id)
+            newRollingStock.addContent(contentNumber,contentName);
+            console.log(newRollingStock);
+            db.collection('rollingStock').findOneAndReplace({id: result[0].id}, newRollingStock)
+            res.redirect('/');
+        }
+    })
 });
 app.post('/setTrainRoute',function(req,res){
     var train = parseFloat(req.body.train);
