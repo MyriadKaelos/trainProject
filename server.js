@@ -35,7 +35,8 @@ function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
         else{return this.weight + "-pound "+this.makemodel+" "+this.type+" car"}
     };
     this.addContent = function(c,w){
-        if(typeof c == "number" && typeof w == "string" && w>=0){
+        if(typeof c == "number" && typeof w == "string" && w.length>=0){
+            console.log(c + w + this.id);
             this.contents.push([c,w]);
             this.weight+=c;
         }
@@ -193,15 +194,18 @@ app.post('/addRollingStocktoCompany',function(req,res){
 });
 app.post('/fillRollingStock',function(req,res){
     var rollingStock = parseFloat(req.body.rollingStock)
-    console.log(rollingStock)
     var contentName = req.body.contentName
     var contentNumber = parseInt(req.body.contentNumber)
     db.collection('rollingStock').find({id: rollingStock}).toArray((err,result) => {
         if(err) {console.log(err)} else {
+            console.log(" Rolling Stock with ID: " + rollingStock);
             console.log(result);
             let newRollingStock = new RollingStock(result[0].weight,result[0].type,result[0].makemodel,result[0].horsepower,result[0].contents,result[0].id)
+            console.log(typeof contentName + " " + contentName);
+            console.log(typeof contentNumber + " " + contentNumber);
             newRollingStock.addContent(contentNumber,contentName);
-            console.log(newRollingStock);
+            console.log(newRollingStock.contents);
+            console.log(" Fill Rolling Stock with ID: " + rollingStock);
             db.collection('rollingStock').findOneAndReplace({id: result[0].id}, newRollingStock)
             res.redirect('/');
         }
