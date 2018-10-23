@@ -24,7 +24,7 @@
         table{
             border-collapse: collapse;
         }
-        table tr:nth-child(2), table#route tr:nth-child(3){
+        header table tr:nth-child(2), table#route tr:nth-child(3){
             color: #aaaaaa;
             text-transform: uppercase;
             font-size: 11px;
@@ -75,6 +75,24 @@
         }
         img:hover{
             opacity: .8;
+        }
+        fieldset.d a{
+            color: red;
+            font-size: 11px;
+            text-decoration: none;
+            display: inherit;
+        }
+        fieldset.d a:hover{
+            color: black;
+            font-style: italic;
+        }
+        fieldset.d table{
+            float:left;
+            max-width: 300px;
+            margin-right: 10px;
+        }
+        fieldset.d tr:nth-child(1) td{
+            text-decoration: underline;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

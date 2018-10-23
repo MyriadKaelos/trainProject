@@ -224,15 +224,6 @@ app.post('/setTrainRoute',function(req,res){
         }
     })
 });
-app.post('/displayRollingStock',function(req,res){
-//function body goes here
-});
-app.post('/displayTrain',function(req,res){
-//function body goes here
-});
-app.post('/displayCompany',function(req,res){
-//function body goes here
-});
 
 MongoClient.connect('mongodb://yateslough:Tra1nP@ds123003.mlab.com:23003/trainproject', {useNewUrlParser:true}, (err, client) => {
     if(err) { console.log(err) }
