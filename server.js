@@ -35,7 +35,7 @@ function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
         else{return this.weight + "-pound "+this.makemodel+" "+this.type+" car"}
     };
     this.addContent = function(c,w){
-        if(typeof c == "number" && typeof w == "string" && w>=0){
+        if(typeof c == "number" && typeof w == "string" && w.length>=0){
             this.contents.push([c,w]);
             this.weight+=c;
         }
@@ -107,7 +107,6 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
         return 375 * this.horsepower() / this.weight();
     }
 }
-
 function Company(n, i=getnextid(), f=[], t=[]){
     this.name = n;
     this.id = i;

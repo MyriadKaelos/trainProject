@@ -285,6 +285,57 @@
             </fieldset>
     </header>
     <img src="https://openclipart.org/image/2400px/svg_to_png/274087/1488160614.png">
-    <nav></nav>
+    <nav>
+        <%for (var i=0; i<company.length; i++) {%>
+            <fieldset class="d" id="<%= company[i].id%>">
+                <legend><%= company[i].name %></legend>
+                <% if(company[i].fleet.length>0){%>
+                <table>
+                    <tr>
+                        <td>Fleet</td>
+                    </tr>
+                    <%for (var j=0; j<company[i].fleet.length; j++){%>
+                        <tr><td><a href="<%= "#"+company[i].fleet[j]%>"><%=company[i].fleet[j]%></a></td></tr>
+                    <%}%>
+                </table>
+                <%}%>
+                <% if(company[i].trains.length>0){%>
+                <table>
+                    <tr>
+                        <td>Trains</td>
+                    </tr>
+                    <%for (var j=0; j<company[i].trains.length; j++){%>
+                        <tr><td><a href="<%= "#"+company[i].trains[j]%>"><%=company[i].trains[j]%></a></td></tr>
+                    <%}%>
+                </table>
+                <%}%>
+            </fieldset>
+        <%}%>
+        <%for (var i=0; i<train.length; i++){%>
+            <fieldset class="d" id="<%= train[i].id %>">
+                <legend><%= train[i].formal()%></legend>
+            <% if(train[i].engines.length>0){%>
+            <table>
+                <tr>
+                    <td>Engines</td>
+                </tr>
+                <%for (var j=0; j<train[i].engines.length; j++){%>
+                <tr><td><a href="<%= "#"+train[i].engines[j]%>"><%=train[i].engines[j]%></a></td></tr>
+                <%}%>
+            </table>
+            <%}%>
+            <% if(train[i].cars.length>0){%>
+            <table>
+                <tr>
+                    <td>Trains</td>
+                </tr>
+                <%for (var j=0; j<train[i].cars.length; j++){%>
+                <tr><td><a href="<%= "#"+train[i].cars[j]%>"><%=train[i].cars[j]%></a></td></tr>
+                <%}%>
+            </table>
+            <%}%>
+            </fieldset>
+        <%}%>
+    </nav>
 </body>
 </html>
