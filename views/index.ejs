@@ -336,6 +336,31 @@
             <%}%>
             </fieldset>
         <%}%>
+        <%for (var i=0; i<rollingStock.length; i++){%>
+        <fieldset class="d" id="<%= rollingStock[i].id %>">
+            <legend><%= rollingStock[i].formal()%></legend>
+            <table>
+                <tr>
+                    <td><%= rollingStock[i].type%></td>
+                    <td><%= rollingStock[i].weight%></td>
+                    <td><%= rollingStock[i].makemodel%></td>
+                    <% if(rollingStock[i].horsepower > 0) {%>
+                    <td><%= rollingStock[i].horsepower%></td>
+                    <%}%>
+                    <td><%= rollingStock[i].weight%></td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>Weight</td>
+                    <td>Make / Model</td>
+                    <% if(rollingStock[i].horsepower > 0) {%>
+                    <td>Horse Power</td>
+                    <%}%>
+                    <td>Weight</td>
+                </tr>
+            </table>
+        </fieldset>
+        <%}%>
     </nav>
 </body>
 </html>
