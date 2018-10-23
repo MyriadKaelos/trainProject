@@ -78,7 +78,6 @@
         }
         fieldset.d a{
             color: red;
-            font-size: 11px;
             text-decoration: none;
             display: inherit;
         }
@@ -91,14 +90,28 @@
             max-width: 300px;
             margin-right: 10px;
         }
-        fieldset.d tr:nth-child(1) td{
-            text-decoration: underline;
+        fieldset.d td.h{
+            color: #aaaaaa;
+            font-size: 11px;
+            text-transform: uppercase;
+            user-select: none;
+        }
+        fieldset.d:target{
+            border-color: blue;
+        }
+        fieldset.d:target legend{
+            font-weight: bold;
+            color: blue;
+            border-color: blue;
+        }
+        fieldset.d:target a{
+            color: blue;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $("document").ready(function(){
-            $("nav").hide();
+            $("header").hide();
             $("img").click(function(){
                 $("header").toggle();
                 $("nav").toggle();
@@ -302,7 +315,7 @@
                 </form>
             </fieldset>
     </header>
-    <img src="https://openclipart.org/image/2400px/svg_to_png/274087/1488160614.png">
+    <img src="https://png.icons8.com/metro/1600/plus.png">
     <nav>
         <%for (var i=0; i<company.length; i++) {%>
             <fieldset class="d" id="<%= company[i].id%>">
@@ -310,7 +323,7 @@
                 <% if(company[i].fleet.length>0){%>
                 <table>
                     <tr>
-                        <td>Fleet</td>
+                        <td class="h">Fleet</td>
                     </tr>
                     <%for (var j=0; j<company[i].fleet.length; j++){%>
                         <tr><td><a href="<%= "#"+company[i].fleet[j]%>"><%=company[i].fleet[j]%></a></td></tr>
@@ -320,7 +333,7 @@
                 <% if(company[i].trains.length>0){%>
                 <table>
                     <tr>
-                        <td>Trains</td>
+                        <td class="h">Trains</td>
                     </tr>
                     <%for (var j=0; j<company[i].trains.length; j++){%>
                         <tr><td><a href="<%= "#"+company[i].trains[j]%>"><%=company[i].trains[j]%></a></td></tr>
@@ -335,7 +348,7 @@
             <% if(train[i].engines.length>0){%>
             <table>
                 <tr>
-                    <td>Engines</td>
+                    <td class="h">Engines</td>
                 </tr>
                 <%for (var j=0; j<train[i].engines.length; j++){%>
                 <tr><td><a href="<%= "#"+train[i].engines[j]%>"><%=train[i].engines[j]%></a></td></tr>
@@ -345,7 +358,7 @@
             <% if(train[i].cars.length>0){%>
             <table>
                 <tr>
-                    <td>Trains</td>
+                    <td class="h">Cars</td>
                 </tr>
                 <%for (var j=0; j<train[i].cars.length; j++){%>
                 <tr><td><a href="<%= "#"+train[i].cars[j]%>"><%=train[i].cars[j]%></a></td></tr>
@@ -355,41 +368,41 @@
             </fieldset>
         <%}%>
         <%for (var i=0; i<rollingStock.length; i++){%>
-        <fieldset class="d" id="<%= rollingStock[i].id %>">
-            <legend><%= rollingStock[i].formal()%></legend>
-            <table>
-                <tr>
-                    <td><%= rollingStock[i].type%></td>
-                    <td><%= rollingStock[i].weight%></td>
-                    <td><%= rollingStock[i].makemodel%></td>
-                    <% if(rollingStock[i].horsepower > 0) {%>
-                    <td><%= rollingStock[i].horsepower%></td>
-                    <%}%>
-                    <td><%= rollingStock[i].weight%></td>
-                    <td>
-                        <table>
+            <fieldset class="d" id="<%= rollingStock[i].id %>">
+                <legend><%= rollingStock[i].formal()%></legend>
+                <table>
+                    <tr><td class="h">Type</td></tr>
+                    <tr><td><%= rollingStock[i].type%></td></tr>
+                </table>
+                <table>
+                    <tr><td class="h">Weight</td></tr>
+                    <tr><td><%= rollingStock[i].weight%></td></tr>
+                </table>
+                <table>
+                    <tr><td class="h">Make & Model</td></tr>
+                    <tr><td><%= rollingStock[i].makemodel%></td></tr>
+                </table>
+                <% if(rollingStock[i].horsepower > 0) {%>
+                    <table>
+                        <tr><td class="h">Horsepower</td></tr>
+                        <tr><td><%= rollingStock[i].horsepower%></td></tr>
+                    </table>
+                <%}%>
+                <table>
+                    <tr><td class="h">Weight</td></tr>
+                    <tr><td><%= rollingStock[i].weight%></td></tr>
+                </table>
+                <% if (rollingStock[i].contents.length>0){%>
+                    <table>
+                        <tr><td class="h">Contents</td></tr>
                         <% for(var o = 0; o < rollingStock[i].contents.length; o ++) {%>
-                            <tr>
-                                <td><%= rollingStock[i].contents[o][0]%> pounds of <%= rollingStock[i].contents[o][1]%></td>
-                            </tr>
+                        <tr>
+                            <td><%= rollingStock[i].contents[o][0]%> pounds of <%= rollingStock[i].contents[o][1]%></td>
+                        </tr>
                         <%}%>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Type</td>
-                    <td>Weight</td>
-                    <td>Make / Model</td>
-                    <% if(rollingStock[i].horsepower > 0) {%>
-                    <td>Horse Power</td>
-                    <%}%>
-                    <td>Weight</td>
-                    <% if(rollingStock[i].contents.length > 0) {%>
-                    <td>Contents</td>
-                    <%}%>
-                </tr>
-            </table>
-        </fieldset>
+                    </table>
+                <%}%>
+            </fieldset>
         <%}%>
     </nav>
 </body>
