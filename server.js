@@ -42,6 +42,7 @@ function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
         }
     }
 }
+//comment
 function Train(i = getnextid(), g = [], c = [], o = [], d = []){
     this.id = i;
     this.engines = g;
