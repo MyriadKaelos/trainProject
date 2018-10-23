@@ -348,6 +348,15 @@
                     <td><%= rollingStock[i].horsepower%></td>
                     <%}%>
                     <td><%= rollingStock[i].weight%></td>
+                    <td>
+                        <table>
+                        <% for(var o = 0; o < rollingStock[i].contents.length; o ++) {%>
+                            <tr>
+                                <td><%= rollingStock[i].contents[o][0]%> pounds of <%= rollingStock[i].contents[o][1]%></td>
+                            </tr>
+                        <%}%>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
                     <td>Type</td>
@@ -357,6 +366,9 @@
                     <td>Horse Power</td>
                     <%}%>
                     <td>Weight</td>
+                    <% if(rollingStock[i].contents.length > 0) {%>
+                    <td>Contents</td>
+                    <%}%>
                 </tr>
             </table>
         </fieldset>
