@@ -305,33 +305,33 @@
     <img src="https://openclipart.org/image/2400px/svg_to_png/274087/1488160614.png">
     <nav>
         <%for (var i=0; i<company.length; i++) {%>
-            <fieldset class="d" id="<%= company[i].id%>">
-                <legend><%= company[i].name %></legend>
-                <% if(company[i].fleet.length>0){%>
-                <table>
-                    <tr>
-                        <td>Fleet</td>
-                    </tr>
-                    <%for (var j=0; j<company[i].fleet.length; j++){%>
-                        <tr><td><a href="<%= "#"+company[i].fleet[j]%>"><%=company[i].fleet[j]%></a></td></tr>
-                    <%}%>
-                </table>
+        <fieldset class="d" id="<%= company[i].id%>">
+            <legend><%= company[i].name %></legend>
+            <% if(company[i].fleet.length>0){%>
+            <table>
+                <tr>
+                    <td>Fleet</td>
+                </tr>
+                <%for (var j=0; j<company[i].fleet.length; j++){%>
+                <tr><td><a href="<%= "#"+company[i].fleet[j]%>"><%=company[i].fleet[j]%></a></td></tr>
                 <%}%>
-                <% if(company[i].trains.length>0){%>
-                <table>
-                    <tr>
-                        <td>Trains</td>
-                    </tr>
-                    <%for (var j=0; j<company[i].trains.length; j++){%>
-                        <tr><td><a href="<%= "#"+company[i].trains[j]%>"><%=company[i].trains[j]%></a></td></tr>
-                    <%}%>
-                </table>
+            </table>
+            <%}%>
+            <% if(company[i].trains.length>0){%>
+            <table>
+                <tr>
+                    <td>Trains</td>
+                </tr>
+                <%for (var j=0; j<company[i].trains.length; j++){%>
+                <tr><td><a href="<%= "#"+company[i].trains[j]%>"><%=company[i].trains[j]%></a></td></tr>
                 <%}%>
-            </fieldset>
+            </table>
+            <%}%>
+        </fieldset>
         <%}%>
         <%for (var i=0; i<train.length; i++){%>
-            <fieldset class="d" id="<%= train[i].id %>">
-                <legend><%= train[i].formal()%></legend>
+        <fieldset class="d" id="<%= train[i].id %>">
+            <legend><%= train[i].formal()%></legend>
             <% if(train[i].engines.length>0){%>
             <table>
                 <tr>
@@ -345,14 +345,34 @@
             <% if(train[i].cars.length>0){%>
             <table>
                 <tr>
-                    <td>Trains</td>
+                    <td>Cars</td>
                 </tr>
                 <%for (var j=0; j<train[i].cars.length; j++){%>
                 <tr><td><a href="<%= "#"+train[i].cars[j]%>"><%=train[i].cars[j]%></a></td></tr>
                 <%}%>
             </table>
             <%}%>
-            </fieldset>
+            <% if (train[i].origin != []) {%>
+            <table>
+                <tr><td>Origin</td></tr>
+                <tr><td><%= train[i].origin[2]%></td></tr>
+                <tr><td><%= train[i].origin[0]%></td></tr>
+                <tr><td><%= train[i].origin[1]%></td></tr>
+            </table>
+            <%}%>
+            <% if (train[i].destination != []) {%>
+            <table>
+                <tr><td>Destination</tr>
+                <tr><td><%= train[i].destination[2]%></td></tr>
+                <tr><td><%= train[i].destination[0]%></td></tr>
+                <tr><td><%= train[i].destination[1]%></td></tr>
+            </table>
+            <%}%>
+            <% if (train[i].calculateDistance() != 0) {%>
+            Distance
+            <%= train[i].calculateDistance()%>
+            <%}%>
+        </fieldset>
         <%}%>
         <%for (var i=0; i<rollingStock.length; i++){%>
         <fieldset class="d" id="<%= rollingStock[i].id %>">
@@ -388,8 +408,8 @@
                     <td>Contents</td>
                     <%}%>
                 </tr>
-            </table>
-        </fieldset>
+                </table>
+            </fieldset>
         <%}%>
     </nav>
 </body>

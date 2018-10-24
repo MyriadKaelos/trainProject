@@ -42,7 +42,7 @@ function RollingStock(w,t,m,h = 0,c = [],i = getnextid()){
         }
     }
 }
-function Train(i = getnextid(), g = [], c = [], o = [], d = []){
+function Train(i = getnextid(), g = [], c = [], o = [], d = [], w = 0, h = 0){
     this.id = i;
     this.engines = g;
     this.cars = c;
@@ -73,7 +73,7 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
         this.destination = [lat,long,n];
     };
     this.calculateDistance = function(){
-        if(origin[1] && destination [1]){
+        if(this.origin[1] && this.destination [1]){
             //from https://github.com/r-e-stern/baseball.amtrak/blob/master/amtrak-baseball.js
             var R = 6371e3;
             var φ1 = this.origin[0]*Math.PI/180;
@@ -86,6 +86,8 @@ function Train(i = getnextid(), g = [], c = [], o = [], d = []){
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             return R * c;
             //output in meters
+        } else {
+            return 0
         }
     };
     this.weight = function(){
