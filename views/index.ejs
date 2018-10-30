@@ -112,12 +112,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $("document").ready(function(){
-            $("nav").hide();
+            var rot = false;
+            $("header").hide();
             $("img").click(function(){
                 $("header").toggle();
                 $("nav").toggle();
+                animateRot(250,rot);
+                rot=!rot;
             });
         });
+        function animateRot(s,r){
+            if(r){
+                for(var i=0; i<s; i++){
+                    eval("setTimeout(function(){$('img').css('transform', 'rotate("+(45/s*i)+"deg)')},"+i+")");
+                }
+            }else{
+                for(var i=s; i>=0; i--){
+                    eval("setTimeout(function(){$('img').css('transform', 'rotate("+(45/s*i)+"deg)')},"+(s-i)+")");
+                }
+            }
+        }
     </script>
 </head>
 <body>
@@ -368,7 +382,7 @@
                 <%}%>
                 <% if (train[i].origin != []) {%>
                 <table>
-                    <tr><td>Origin</td></tr>
+                    <tr><td class="h">Origin</td></tr>
                     <tr><td><%= train[i].origin[2]%></td></tr>
                     <tr><td><%= train[i].origin[0]%></td></tr>
                     <tr><td><%= train[i].origin[1]%></td></tr>
@@ -376,7 +390,7 @@
                 <%}%>
                 <% if (train[i].destination != []) {%>
                 <table>
-                    <tr><td>Destination</tr>
+                    <tr><td class="h">Destination</tr>
                     <tr><td><%= train[i].destination[2]%></td></tr>
                     <tr><td><%= train[i].destination[0]%></td></tr>
                     <tr><td><%= train[i].destination[1]%></td></tr>
@@ -384,8 +398,8 @@
                 <%}%>
                 <% if (train[i].calculateDistance() != 0) {%>
                 <table>
-                  <tr><td>Distance</td></tr>
-                    <tr><td><%= train[i].calculateDistance()%></td></tr>
+                  <tr><td class="h">Distance</td></tr>
+                    <tr><td><%= Math.floor(train[i].calculateDistance()/1000)%> km</td></tr>
                 </table>
                 <%}%>
             </fieldset>
@@ -411,10 +425,6 @@
                         <tr><td><%= rollingStock[i].horsepower%></td></tr>
                     </table>
                 <%}%>
-                <table>
-                    <tr><td class="h">Weight</td></tr>
-                    <tr><td><%= rollingStock[i].weight%></td></tr>
-                </table>
                 <% if (rollingStock[i].contents.length>0){%>
                 <table>
                     <tr><td class="h">Contents</td></tr>
