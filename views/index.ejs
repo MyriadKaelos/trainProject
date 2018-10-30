@@ -13,6 +13,10 @@
             max-width: 800px;
             margin: 10px auto;
         }
+        nav{
+            font-family: "Century Gothic", "Arial", sans-serif;
+            padding: 10px;
+        }
         fieldset legend{
             border-left: 2px solid red;
             border-right: 2px solid red;
@@ -332,110 +336,119 @@
     </header>
     <img src="https://png.icons8.com/metro/1600/plus.png">
     <nav>
-        <%for (var i=0; i<company.length; i++) {%>
-            <fieldset class="d" id="<%= company[i].id%>">
-                <legend><%= company[i].name %></legend>
-                <% if(company[i].fleet.length>0){%>
-                <table>
-                    <tr>
-                        <td class="h">Fleet</td>
-                    </tr>
-                    <%for (var j=0; j<company[i].fleet.length; j++){%>
-                        <tr><td><a href="<%= "#"+company[i].fleet[j]%>"><%=company[i].fleet[j]%></a></td></tr>
-                    <%}%>
-                </table>
-                <%}%>
-                <% if(company[i].trains.length>0){%>
-                <table>
-                    <tr>
-                        <td class="h">Trains</td>
-                    </tr>
-                    <%for (var j=0; j<company[i].trains.length; j++){%>
-                        <tr><td><a href="<%= "#"+company[i].trains[j]%>"><%=company[i].trains[j]%></a></td></tr>
-                    <%}%>
-                </table>
-                <%}%>
-            </fieldset>
-        <%}%>
-        <%for (var i=0; i<train.length; i++){%>
-            <fieldset class="d" id="<%= train[i].id %>">
-                <legend><%= train[i].formal()%></legend>
-                <% if(train[i].engines.length>0){%>
-                <table>
-                    <tr>
-                        <td class="h">Engines</td>
-                    </tr>
-                    <%for (var j=0; j<train[i].engines.length; j++){%>
-                    <tr><td><a href="<%= "#"+train[i].engines[j]%>"><%=train[i].engines[j]%></a></td></tr>
-                    <%}%>
-                </table>
-                <%}%>
-                <% if(train[i].cars.length>0){%>
-                <table>
-                    <tr>
-                        <td class="h">Cars</td>
-                    </tr>
-                    <%for (var j=0; j<train[i].cars.length; j++){%>
-                    <tr><td><a href="<%= "#"+train[i].cars[j]%>"><%=train[i].cars[j]%></a></td></tr>
-                    <%}%>
-                </table>
-                <%}%>
-                <% if (train[i].origin != []) {%>
-                <table>
-                    <tr><td class="h">Origin</td></tr>
-                    <tr><td><%= train[i].origin[2]%></td></tr>
-                    <tr><td><%= train[i].origin[0]%></td></tr>
-                    <tr><td><%= train[i].origin[1]%></td></tr>
-                </table>
-                <%}%>
-                <% if (train[i].destination != []) {%>
-                <table>
-                    <tr><td class="h">Destination</tr>
-                    <tr><td><%= train[i].destination[2]%></td></tr>
-                    <tr><td><%= train[i].destination[0]%></td></tr>
-                    <tr><td><%= train[i].destination[1]%></td></tr>
-                </table>
-                <%}%>
-                <% if (train[i].calculateDistance() != 0) {%>
-                <table>
-                  <tr><td class="h">Distance</td></tr>
-                    <tr><td><%= Math.floor(train[i].calculateDistance()/1000)%> km</td></tr>
-                </table>
-                <%}%>
-            </fieldset>
-        <%}%>
-        <%for (var i=0; i<rollingStock.length; i++){%>
-            <fieldset class="d" id="<%= rollingStock[i].id %>">
-                <legend><%= rollingStock[i].formal()%></legend>
-                <table>
-                    <tr><td class="h">Type</td></tr>
-                    <tr><td><%= rollingStock[i].type%></td></tr>
-                </table>
-                <table>
-                    <tr><td class="h">Weight</td></tr>
-                    <tr><td><%= rollingStock[i].weight%></td></tr>
-                </table>
-                <table>
-                    <tr><td class="h">Make & Model</td></tr>
-                    <tr><td><%= rollingStock[i].makemodel%></td></tr>
-                </table>
-                <% if(rollingStock[i].horsepower > 0) {%>
+        <% if ((company.length + train.length + rollingStock.length) < 1){%>
+
+            There is no data in the system; please press the add data button to begin.
+        <%}else{%>
+            <%for (var i=0; i<company.length; i++) {%>
+                <fieldset class="d" id="<%= company[i].id%>">
+                    <legend><%= company[i].name %></legend>
+                    <% if(company[i].fleet.length>0){%>
                     <table>
-                        <tr><td class="h">Horsepower</td></tr>
-                        <tr><td><%= rollingStock[i].horsepower%></td></tr>
+                        <tr>
+                            <td class="h">Fleet</td>
+                        </tr>
+                        <%for (var j=0; j<company[i].fleet.length; j++){%>
+                            <tr><td><a href="<%= "#"+company[i].fleet[j]%>"><%=company[i].fleet[j]%></a></td></tr>
+                        <%}%>
                     </table>
-                <%}%>
-                <% if (rollingStock[i].contents.length>0){%>
-                <table>
-                    <tr><td class="h">Contents</td></tr>
-                    <% for(var o = 0; o < rollingStock[i].contents.length; o ++) {%>
-                    <tr>
-                        <td><%= rollingStock[i].contents[o][0]%> pounds of <%= rollingStock[i].contents[o][1]%></td>
-                    </tr>
                     <%}%>
-                </table>
-                <%}%>
-            </fieldset>
+                    <% if(company[i].trains.length>0){%>
+                    <table>
+                        <tr>
+                            <td class="h">Trains</td>
+                        </tr>
+                        <%for (var j=0; j<company[i].trains.length; j++){%>
+                            <tr><td><a href="<%= "#"+company[i].trains[j]%>"><%=company[i].trains[j]%></a></td></tr>
+                        <%}%>
+                    </table>
+                    <%}%>
+                </fieldset>
+            <%}%>
+            <%for (var i=0; i<train.length; i++){%>
+                <fieldset class="d" id="<%= train[i].id %>">
+                    <legend><%= train[i].formal()%></legend>
+                    <% if(train[i].engines.length>0){%>
+                    <table>
+                        <tr>
+                            <td class="h">Engines</td>
+                        </tr>
+                        <%for (var j=0; j<train[i].engines.length; j++){%>
+                        <tr><td><a href="<%= "#"+train[i].engines[j]%>"><%=train[i].engines[j]%></a></td></tr>
+                        <%}%>
+                    </table>
+                    <%}%>
+                    <% if(train[i].cars.length>0){%>
+                    <table>
+                        <tr>
+                            <td class="h">Cars</td>
+                        </tr>
+                        <%for (var j=0; j<train[i].cars.length; j++){%>
+                        <tr><td><a href="<%= "#"+train[i].cars[j]%>"><%=train[i].cars[j]%></a></td></tr>
+                        <%}%>
+                    </table>
+                    <%}%>
+                    <% if (train[i].origin != []) {%>
+                    <table>
+                        <tr><td class="h">Origin</td></tr>
+                        <tr><td><%= train[i].origin[2]%></td></tr>
+                        <tr>
+
+                            <td> <a target="_blank" href="http://www.google.com/maps/place/<%= train[i].origin[1]%>,<%= train[i].origin[0]%>"><%= train[i].origin[1]%>,<%= train[i].origin[0]%></a></td>
+
+                        </tr>
+                    </table>
+                    <%}%>
+                    <% if (train[i].destination != []) {%>
+                    <table>
+                        <tr><td class="h">Destination</tr>
+                        <tr><td><%= train[i].destination[2]%></td></tr>
+                        <tr>
+                            <td><a target="_blank" href="http://www.google.com/maps/place/<%= train[i].destination[1]%>,<%= train[i].destination[0]%>"><%= train[i].destination[1]%>,<%= train[i].destination[0]%></a></td>
+                            </tr>
+                    </table>
+                    <%}%>
+                    <% if (train[i].calculateDistance() != 0) {%>
+                    <table>
+                      <tr><td class="h">Distance</td></tr>
+                        <tr><td><%= Math.floor(train[i].calculateDistance()/1000)%> km</td></tr>
+                    </table>
+                    <%}%>
+                </fieldset>
+            <%}%>
+            <%for (var i=0; i<rollingStock.length; i++){%>
+                <fieldset class="d" id="<%= rollingStock[i].id %>">
+                    <legend><%= rollingStock[i].formal()%></legend>
+                    <table>
+                        <tr><td class="h">Type</td></tr>
+                        <tr><td><%= rollingStock[i].type%></td></tr>
+                    </table>
+                    <table>
+                        <tr><td class="h">Weight</td></tr>
+                        <tr><td><%= rollingStock[i].weight%></td></tr>
+                    </table>
+                    <table>
+                        <tr><td class="h">Make & Model</td></tr>
+                        <tr><td><%= rollingStock[i].makemodel%></td></tr>
+                    </table>
+                    <% if(rollingStock[i].horsepower > 0) {%>
+                        <table>
+                            <tr><td class="h">Horsepower</td></tr>
+                            <tr><td><%= rollingStock[i].horsepower%></td></tr>
+                        </table>
+                    <%}%>
+                    <% if (rollingStock[i].contents.length>0){%>
+                    <table>
+                        <tr><td class="h">Contents</td></tr>
+                        <% for(var o = 0; o < rollingStock[i].contents.length; o ++) {%>
+                        <tr>
+                            <td><%= rollingStock[i].contents[o][0]%> pounds of <%= rollingStock[i].contents[o][1]%></td>
+                        </tr>
+                        <%}%>
+                    </table>
+                    <%}%>
+                </fieldset>
+            <%}%>
         <%}%>
     </nav>
 </body>
