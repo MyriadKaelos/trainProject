@@ -231,7 +231,7 @@ MongoClient.connect('mongodb://yateslough:Tra1nP@ds123003.mlab.com:23003/trainpr
     if(err) { console.log(err) }
     console.log("Connected successfully to server");
     db = client.db('trainproject')
-    app.listen(3000, () => {
-        console.log('get');
-    })
+    app.listen(process.env.PORT || 5000,function(){
+        console.log("listening on 5000");
+    });
 })
